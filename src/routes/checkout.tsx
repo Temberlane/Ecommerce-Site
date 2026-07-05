@@ -6,7 +6,7 @@ import { getProduct, type Product } from '../data/catalog';
 import { productImage } from '../data/images';
 import { FREE_SHIPPING_MIN, formatCard, formatExpiry, payErrors, shipErrors, shippingFor, type PayInfo, type ShipInfo } from '../lib/checkout';
 import { money } from '../lib/format';
-import { buttons, serif } from '../lib/ui';
+import { buttons, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 
 export const Route = createFileRoute('/checkout')({
@@ -100,7 +100,7 @@ function CheckoutPage() {
 
       {step === 0 && (
         <>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>Let's make sure this is the one.</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>Let's make sure this is the one.</h2>
           <p style={{ fontSize: 15, color: '#6B675C', margin: '0 0 24px' }}>Adjust quantities now — no judgement, some judgement.</p>
           <div style={{ background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 14, padding: '6px 22px' }}>
             {cart.map((line) => {
@@ -110,7 +110,7 @@ function CheckoutPage() {
                 <div key={line.id} style={{ display: 'flex', gap: 16, alignItems: 'center', padding: '18px 0', borderBottom: '1px solid #EFE9DB' }}>
                   <image-slot id={'co-img-' + p.id} shape="rounded" radius="8" placeholder="img" src={productImage(p.id)} style={{ width: 62, height: 62, flex: '0 0 auto' }}></image-slot>
                   <div style={{ flex: 1 }}>
-                    <div style={{ fontFamily: serif, fontSize: 16, fontWeight: 600 }}>{p.name}</div>
+                    <div style={{ fontFamily: display, fontSize: 16, fontWeight: 600 }}>{p.name}</div>
                     <div style={{ fontSize: 12.5, color: '#948E7E' }}>{p.dept}</div>
                   </div>
                   <QtyStepper size="xs" qty={line.qty} onInc={() => setQty(line.id, 1)} onDec={() => setQty(line.id, -1)} />
@@ -124,7 +124,7 @@ function CheckoutPage() {
 
       {step === 1 && (
         <>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>Where's it going?</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>Where's it going?</h2>
           <p style={{ fontSize: 15, color: '#6B675C', margin: '0 0 24px' }}>We'll only email about the order. And maybe one drop.</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <Field span2 label="Full name" value={ship.name} onChange={setShip('name')} placeholder="Frances Performative" error={sErr.name} />
@@ -139,7 +139,7 @@ function CheckoutPage() {
 
       {step === 2 && (
         <>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>The financially committed part.</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: '0 0 6px' }}>The financially committed part.</h2>
           <p style={{ fontSize: 15, color: '#6B675C', margin: '0 0 24px' }}>Nothing is really charged — it's a prototype. Type freely.</p>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }}>
             <Field span2 label="Name on card" value={pay.name} onChange={setPay('name')} placeholder="Frances Performative" error={pErr.name} />
@@ -171,7 +171,7 @@ function CheckoutPage() {
         <>
           <div style={{ textAlign: 'center', marginBottom: 36 }}>
             <div style={{ width: 66, height: 66, borderRadius: '50%', background: '#7D8B4E', color: '#FCFAF5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 32, margin: '0 auto 18px' }}>✓</div>
-            <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 34, margin: '0 0 8px' }}>You were always this way.</h2>
+            <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 34, margin: '0 0 8px' }}>You were always this way.</h2>
             <p style={{ fontSize: 15.5, color: '#6B675C', margin: 0 }}>
               Order <span style={{ fontWeight: 700, color: '#2B2A24' }}>{order.num}</span> is in. A confirmation is heading to your inbox.
             </p>
@@ -200,7 +200,7 @@ function CheckoutPage() {
             </div>
             <div>
               <div style={{ background: '#F0DCD1', border: '1px solid #E7C9B9', borderRadius: 14, padding: 20, marginBottom: 18 }}>
-                <div style={{ fontFamily: serif, fontSize: 18, fontWeight: 600, marginBottom: 10 }}>What happens next</div>
+                <div style={{ fontFamily: heading, fontSize: 18, fontWeight: 600, marginBottom: 10 }}>What happens next</div>
                 <div style={{ fontSize: 13.5, color: '#6A4A3B', lineHeight: 1.6 }}>
                   We pick, wrap in the good tissue paper, and ship within 1–2 days. You'll get a tracking link. Then you get to act surprised when someone asks where it's from.
                 </div>
@@ -209,12 +209,12 @@ function CheckoutPage() {
                 {micro.done ? (
                   <div style={{ textAlign: 'center', padding: '8px 0' }}>
                     <div style={{ fontSize: 24, marginBottom: 6 }}>🤍</div>
-                    <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 600, marginBottom: 4 }}>Thanks for that. Genuinely.</div>
+                    <div style={{ fontFamily: heading, fontSize: 19, fontWeight: 600, marginBottom: 4 }}>Thanks for that. Genuinely.</div>
                     <div style={{ fontSize: 13.5, color: '#6B675C' }}>We read every single one of these, promise.</div>
                   </div>
                 ) : (
                   <>
-                    <div style={{ fontFamily: serif, fontSize: 18, fontWeight: 600, marginBottom: 4 }}>How'd we do?</div>
+                    <div style={{ fontFamily: heading, fontSize: 18, fontWeight: 600, marginBottom: 4 }}>How'd we do?</div>
                     <div style={{ fontSize: 13, color: '#6B675C', marginBottom: 12 }}>Be honest — we can take it.</div>
                     <div style={{ display: 'flex', gap: 6, marginBottom: 14 }}>
                       {[1, 2, 3, 4, 5].map((n) => (

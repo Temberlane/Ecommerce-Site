@@ -2,7 +2,7 @@ import { useNavigate } from '@tanstack/react-router';
 import { getProduct } from '../data/catalog';
 import { productImage } from '../data/images';
 import { money } from '../lib/format';
-import { buttons, serif } from '../lib/ui';
+import { buttons, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 import { QtyStepper } from './QtyStepper';
 
@@ -31,7 +31,7 @@ export function CartDrawer() {
       ></div>
       <div style={{ position: 'fixed', top: 0, right: 0, height: '100vh', width: 400, maxWidth: '92vw', background: '#F6F1E7', zIndex: 71, boxShadow: '-16px 0 44px rgba(43,42,36,0.16)', transform: cartOpen ? 'translateX(0)' : 'translateX(103%)', transition: 'transform .28s cubic-bezier(.4,0,.2,1)', display: 'flex', flexDirection: 'column' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '22px 24px', borderBottom: '1px solid #E5DECF' }}>
-          <span style={{ fontFamily: serif, fontSize: 22, fontWeight: 600 }}>
+          <span style={{ fontFamily: heading, fontSize: 22, fontWeight: 600 }}>
             Your bag <span style={{ color: '#948E7E', fontSize: 16 }}>({cartCount})</span>
           </span>
           <span onClick={closeCart} style={{ cursor: 'pointer', fontSize: 22, color: '#6B675C', lineHeight: 1 }}>×</span>
@@ -41,7 +41,7 @@ export function CartDrawer() {
           {cartCount === 0 && (
             <div style={{ textAlign: 'center', padding: '70px 10px' }}>
               <div style={{ fontSize: 30, marginBottom: 10 }}>🛍️</div>
-              <p style={{ fontFamily: serif, fontSize: 20, margin: '0 0 6px' }}>It's empty in here.</p>
+              <p style={{ fontFamily: heading, fontSize: 20, margin: '0 0 6px' }}>It's empty in here.</p>
               <p style={{ fontSize: 14, color: '#6B675C', margin: '0 0 20px' }}>Suspiciously un-performative of you.</p>
               <button onClick={goShop} style={{ ...buttons.olive, padding: '12px 22px', fontSize: 14.5 }}>Start shopping</button>
             </div>
@@ -54,7 +54,7 @@ export function CartDrawer() {
                 {/* "drawer-" prefix keeps slot ids unique when the cart page shows the same items. */}
                 <image-slot id={'drawer-img-' + p.id} shape="rounded" radius="8" placeholder="img" src={productImage(p.id)} style={{ width: 68, height: 68, flex: '0 0 auto' }}></image-slot>
                 <div style={{ flex: 1 }}>
-                  <div style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 4 }}>{p.name}</div>
+                  <div style={{ fontFamily: display, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 4 }}>{p.name}</div>
                   <div style={{ fontSize: 12.5, color: '#948E7E', marginBottom: 8 }}>{p.dept}</div>
                   <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                     <QtyStepper size="sm" qty={line.qty} onInc={() => setQty(line.id, 1)} onDec={() => setQty(line.id, -1)} />

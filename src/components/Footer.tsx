@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router';
-import { serif } from '../lib/ui';
+import { brand } from '../lib/ui';
 import { useShop } from '../state/store';
 
 const colTitle = { fontSize: 12, textTransform: 'uppercase', letterSpacing: '0.1em', color: '#8C8676', marginBottom: 14 } as const;
@@ -11,7 +11,7 @@ export function Footer() {
     <footer style={{ background: '#2B2A24', color: '#D8D2C4', marginTop: 40 }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: '48px 28px', display: 'grid', gridTemplateColumns: '1.4fr 1fr 1fr 1fr', gap: 32 }}>
         <div>
-          <div style={{ fontFamily: serif, fontSize: 21, fontWeight: 600, color: '#F6F1E7', marginBottom: 10 }}>The Performative</div>
+          <div style={{ fontFamily: brand, fontWeight: 700, fontSize: 30, color: '#F6F1E7', marginBottom: 10 }}>The Performative</div>
           <p style={{ fontSize: 14, lineHeight: 1.6, color: '#ADA694', maxWidth: 260 }}>Everything you need to look like you were always this way.</p>
         </div>
         <div>
@@ -41,7 +41,7 @@ export function Footer() {
         </div>
       </div>
       <div style={{ borderTop: '1px solid #3D3B33', padding: '18px 28px', textAlign: 'center', fontSize: 12.5, color: '#837D6D' }}>
-        © 2025 The Performative. A bit, sincerely.
+        © 2026 The Performative. A bit, sincerely.
       </div>
     </footer>
   );

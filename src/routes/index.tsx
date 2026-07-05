@@ -2,7 +2,7 @@ import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { HomeRowCard } from '../components/HomeRowCard';
 import { BUNDLE_IDS, CATALOG, DEPTS, DEPT_TAGS, getProduct, PERF_LEVELS } from '../data/catalog';
 import { DEPT_IMAGES, SITE_IMAGES } from '../data/images';
-import { buttons, card, serif } from '../lib/ui';
+import { brand, buttons, card, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 
 export const Route = createFileRoute('/')({
@@ -30,8 +30,8 @@ function HomePage() {
     <div style={{ animation: 'tpFade 0.4s ease' }}>
       <section style={{ maxWidth: 1240, margin: '0 auto', padding: '56px 28px 20px', display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 48, alignItems: 'center' }}>
         <div>
-          <div style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 22 }}>Est. 2025 · Curated for the most aura</div>
-          <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 58, lineHeight: 1.02, letterSpacing: '-0.02em', margin: '0 0 22px' }}>
+          <div style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 22 }}>Est. 2026 · Curated for the most aura</div>
+          <h1 style={{ fontFamily: heading, fontWeight: 500, fontSize: 58, lineHeight: 1.02, letterSpacing: '-0.02em', margin: '0 0 22px' }}>
             Everything you need to look like you were <span style={{ fontStyle: 'italic', color: '#7D8B4E' }}>always this way.</span>
           </h1>
           <p style={{ fontSize: 17, lineHeight: 1.6, color: '#6B675C', maxWidth: 460, margin: '0 0 30px' }}>
@@ -45,7 +45,7 @@ function HomePage() {
         <div style={{ position: 'relative' }}>
           <image-slot id="img-hero" shape="rounded" radius="14" placeholder="lifestyle — café table, matcha + paperback" src={SITE_IMAGES.hero} style={{ width: '100%', height: 440 }}></image-slot>
           <div style={{ position: 'absolute', bottom: 16, left: 16, background: 'rgba(252,250,245,0.92)', backdropFilter: 'blur(6px)', border: '1px solid #E5DECF', borderRadius: 10, padding: '10px 14px', fontSize: 13 }}>
-            <span style={{ fontFamily: serif, fontStyle: 'italic' }}>The look:</span> committed, but casual about it.
+            <span style={{ fontFamily: brand, fontWeight: 700, fontSize: 19 }}>The look:</span> committed, but casual about it.
           </div>
         </div>
       </section>
@@ -54,15 +54,15 @@ function HomePage() {
         <div onClick={goDrop} style={{ cursor: 'pointer', background: '#BC6A47', color: '#FCF6F1', borderRadius: 12, padding: '20px 28px', display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 20, flexWrap: 'wrap' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
             <span style={{ fontSize: 11.5, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 700, background: 'rgba(255,255,255,0.18)', padding: '5px 10px', borderRadius: 20 }}>Matcha Drop</span>
-            <span style={{ fontFamily: serif, fontSize: 21, fontWeight: 500 }}>It's live — 15% off ceremonial grade, while supplies romanticize.</span>
+            <span style={{ fontFamily: display, fontSize: 21, fontWeight: 500 }}>It's live — 15% off ceremonial grade, while supplies romanticize.</span>
           </div>
-          <span style={{ fontWeight: 600, fontSize: 15, whiteSpace: 'nowrap' }}>Grab a tin →</span>
+          <span style={{ fontWeight: 600, fontSize: 15, whiteSpace: 'nowrap' }}>Grab a tin now →</span>
         </div>
       </section>
 
       <section style={{ maxWidth: 1240, margin: '64px auto 0', padding: '0 28px' }}>
         <div style={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', marginBottom: 24 }}>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 32, margin: 0, letterSpacing: '-0.01em' }}>Shop the archetype</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 32, margin: 0, letterSpacing: '-0.01em' }}>Shop the archetype</h2>
           <Link to="/shop" style={{ cursor: 'pointer', color: '#7D8B4E', fontWeight: 600, fontSize: 14.5 }}>All departments →</Link>
         </div>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
@@ -70,7 +70,7 @@ function HomePage() {
             <div key={d} onClick={() => navigate({ to: '/shop', search: { depts: [d] } })} style={{ ...card, cursor: 'pointer' }}>
               <image-slot id={'img-dept-' + i} shape="rect" placeholder={d.toLowerCase()} src={DEPT_IMAGES[d]} style={{ width: '100%', height: 168 }}></image-slot>
               <div style={{ padding: '16px 18px' }}>
-                <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 600, marginBottom: 3 }}>{d}</div>
+                <div style={{ fontFamily: display, fontSize: 19, fontWeight: 600, marginBottom: 3 }}>{d}</div>
                 <div style={{ fontSize: 13.5, color: '#6B675C' }}>{DEPT_TAGS[i]}</div>
               </div>
             </div>
@@ -83,7 +83,7 @@ function HomePage() {
           <image-slot id="img-bundle" shape="rounded" radius="12" placeholder="flat-lay — the whole starter pack" src={SITE_IMAGES.bundle} style={{ width: '100%', height: 300 }}></image-slot>
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#BC6A47', fontWeight: 700, marginBottom: 14 }}>Bundle · Save 15%</div>
-            <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 36, margin: '0 0 14px', letterSpacing: '-0.01em' }}>The Starter Pack</h2>
+            <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 36, margin: '0 0 14px', letterSpacing: '-0.01em' }}>The Starter Pack</h2>
             <p style={{ fontSize: 16, lineHeight: 1.6, color: '#5A5647', margin: '0 0 20px' }}>
               One tote, one tin, one paperback, one pair of aggressively wired earbuds. Everything you need to commit to the bit in a single, decisive click.
             </p>
@@ -105,7 +105,7 @@ function HomePage() {
 
       <section style={{ maxWidth: 1240, margin: '64px auto 0', padding: '0 28px' }}>
         <div style={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', marginBottom: 20 }}>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: 0, letterSpacing: '-0.01em' }}>Fresh drops</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: 0, letterSpacing: '-0.01em' }}>Fresh drops</h2>
           <span style={{ fontSize: 13.5, color: '#6B675C' }}>New this week</span>
         </div>
         <div className="hrow" style={{ display: 'flex', gap: 18, overflowX: 'auto', paddingBottom: 10, scrollSnapType: 'x proximity' }}>
@@ -121,7 +121,7 @@ function HomePage() {
           <image-slot id="img-founder" shape="circle" placeholder="founder" src={SITE_IMAGES.founder} style={{ width: 130, height: 130 }}></image-slot>
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 16 }}>A note from the desk</div>
-            <p style={{ fontFamily: serif, fontSize: 23, lineHeight: 1.5, fontWeight: 400, margin: '0 0 16px', letterSpacing: '-0.005em' }}>
+            <p style={{ fontFamily: display, fontSize: 23, lineHeight: 1.5, fontWeight: 400, margin: '0 0 16px', letterSpacing: '-0.005em' }}>
               “I started this because I kept getting texts asking where the tote was from, which matcha, which book. So I put it all in one place. It's a bit — and it's also just genuinely good stuff. Both things are allowed.”
             </p>
             <div style={{ fontSize: 14.5, color: '#6B675C' }}>— Frances, founder</div>
@@ -131,7 +131,7 @@ function HomePage() {
 
       <section style={{ maxWidth: 1240, margin: '64px auto 0', padding: '0 28px' }}>
         <div style={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', marginBottom: 20 }}>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: 0, letterSpacing: '-0.01em' }}>Peak performance</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: 0, letterSpacing: '-0.01em' }}>Peak performance</h2>
           <span style={{ fontSize: 13.5, color: '#6B675C' }}>Final Boss tier</span>
         </div>
         <div className="hrow" style={{ display: 'flex', gap: 18, overflowX: 'auto', paddingBottom: 10, scrollSnapType: 'x proximity' }}>
@@ -143,7 +143,7 @@ function HomePage() {
 
       <section style={{ maxWidth: 1240, margin: '72px auto 0', padding: '0 28px' }}>
         <div style={{ borderTop: '1px solid #E5DECF', paddingTop: 44, textAlign: 'center' }}>
-          <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 30, margin: '0 0 10px' }}>Want the drops before she does?</h2>
+          <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 30, margin: '0 0 10px' }}>Want to be chic earlier than anyone?</h2>
           <p style={{ fontSize: 16, color: '#6B675C', margin: '0 0 22px' }}>One email a week. No pressure, mild superiority.</p>
           <div style={{ display: 'flex', gap: 10, maxWidth: 420, margin: '0 auto' }}>
             <input placeholder="you@somewhere.nice" style={{ flex: 1, border: '1px solid #CFC7B4', borderRadius: 9, padding: '13px 15px', fontSize: 15, background: '#FCFAF5', outline: 'none' }} />

@@ -3,7 +3,7 @@ import { createFileRoute, Link, notFound, useNavigate } from '@tanstack/react-ro
 import { CATALOG, DEPT_INFORM, getProduct, PERF_LEVELS } from '../data/catalog';
 import { productImage } from '../data/images';
 import { money } from '../lib/format';
-import { card, serif } from '../lib/ui';
+import { brand, card, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 
 export const Route = createFileRoute('/product/$id')({
@@ -75,12 +75,12 @@ function ProductPage() {
                 <span style={{ fontSize: 12, color: '#7D8B4E', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{p.dept}</span>
                 <span style={{ fontSize: 11, fontWeight: 700, color: '#64723C', background: '#E7EAD8', padding: '3px 9px', borderRadius: 20 }}>{PERF_LEVELS[p.perf - 1]}</span>
               </div>
-              <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 40, lineHeight: 1.08, letterSpacing: '-0.015em', margin: '0 0 14px' }}>{p.name}</h1>
+              <h1 style={{ fontFamily: display, fontWeight: 500, fontSize: 40, lineHeight: 1.08, letterSpacing: '-0.015em', margin: '0 0 14px' }}>{p.name}</h1>
               <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
                 <span style={{ fontSize: 26, fontWeight: 700 }}>{money(p.price)}</span>
                 <span style={{ color: '#C9922F', fontSize: 14 }}>★ {p.rating.toFixed(1)}</span>
               </div>
-              <p style={{ fontFamily: serif, fontSize: 20, lineHeight: 1.5, color: '#3E3B33', margin: '0 0 12px' }}>{p.blurb}</p>
+              <p style={{ fontFamily: display, fontSize: 20, lineHeight: 1.5, color: '#3E3B33', margin: '0 0 12px' }}>{p.blurb}</p>
               <p style={{ fontSize: 15, lineHeight: 1.65, color: '#6B675C', margin: '0 0 24px' }}>{DEPT_INFORM[p.dept]}</p>
 
               <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 12 }}>
@@ -114,7 +114,7 @@ function ProductPage() {
 
               {p.dept === 'Threads' && (
                 <div style={{ border: '1px dashed #D6CDB8', borderRadius: 12, padding: '16px 18px', fontSize: 14, color: '#6B675C', marginBottom: 20 }}>
-                  <span style={{ fontFamily: serif, fontStyle: 'italic', color: '#2B2A24' }}>Size guide:</span> runs true; between sizes, size down for a cleaner line, up for the intended slouch. XS–XXL.
+                  <span style={{ fontFamily: brand, fontWeight: 700, fontSize: 19, color: '#2B2A24' }}>Size guide:</span> runs true; between sizes, size down for a cleaner line, up for the intended slouch. XS–XXL.
                 </div>
               )}
 
@@ -126,7 +126,7 @@ function ProductPage() {
           </div>
 
           <section style={{ marginTop: 72 }}>
-            <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 28, margin: '0 0 22px' }}>Others committing to the bit</h2>
+            <h2 style={{ fontFamily: heading, fontWeight: 500, fontSize: 28, margin: '0 0 22px' }}>Others committing to the bit</h2>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 20 }}>
               {related.map((r) => (
                 <div key={r.id}>
@@ -134,7 +134,7 @@ function ProductPage() {
                     <image-slot id={'rel-img-' + r.id} shape="rect" placeholder={r.ph} src={productImage(r.id)} style={{ width: '100%', height: 190 }}></image-slot>
                   </div>
                   <div style={{ padding: '12px 2px 0' }}>
-                    <div onClick={() => navigate({ to: '/product/$id', params: { id: r.id } })} style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 5, cursor: 'pointer' }}>{r.name}</div>
+                    <div onClick={() => navigate({ to: '/product/$id', params: { id: r.id } })} style={{ fontFamily: display, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 5, cursor: 'pointer' }}>{r.name}</div>
                     <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <span style={{ fontWeight: 700, fontSize: 14.5 }}>{money(r.price)}</span>
                       <span style={{ fontSize: 12.5, color: '#948E7E' }}>★ {r.rating.toFixed(1)}</span>

@@ -1,9 +1,9 @@
-import type { MouseEvent } from 'react';
+import type { CSSProperties, MouseEvent } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { PERF_LEVELS, type Product } from '../data/catalog';
 import { productImage } from '../data/images';
 import { money } from '../lib/format';
-import { card, serif } from '../lib/ui';
+import { card, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 
 interface Props {
@@ -13,17 +13,32 @@ interface Props {
   showBlurb?: boolean;
 }
 
+const qtyBtn: CSSProperties = { cursor: 'pointer', padding: '7px 10px', fontSize: 14, color: '#4A473E', lineHeight: 1, userSelect: 'none' };
+
 export function ProductCard({ product: p, height = 230, showBlurb = true }: Props) {
-  const { addToCart, showToast } = useShop();
+  const { cart, addToCart, setQty, removeLine, showToast } = useShop();
   const navigate = useNavigate();
 
   const soldOut = p.stock <= 0;
   const badge = p.limited ? 'Matcha Drop' : p.isNew ? 'New' : '';
+  const qty = cart.find((c) => c.id === p.id)?.qty ?? 0;
   const open = () => navigate({ to: '/product/$id', params: { id: p.id } });
   const add = (e: MouseEvent) => {
     e.stopPropagation();
     if (soldOut) showToast("We'll holler when it's back");
     else addToCart(p.id, 1);
+  };
+  const inc = (e: MouseEvent) => {
+    e.stopPropagation();
+    setQty(p.id, 1);
+  };
+  const dec = (e: MouseEvent) => {
+    e.stopPropagation();
+    setQty(p.id, -1);
+  };
+  const remove = (e: MouseEvent) => {
+    e.stopPropagation();
+    removeLine(p.id);
   };
 
   return (
@@ -36,7 +51,7 @@ export function ProductCard({ product: p, height = 230, showBlurb = true }: Prop
           </span>
         )}
         {soldOut && (
-          <span style={{ position: 'absolute', inset: 0, background: 'rgba(246,241,231,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: serif, fontSize: 17, color: '#2B2A24' }}>
+          <span style={{ position: 'absolute', inset: 0, background: 'rgba(246,241,231,0.55)', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: heading, fontSize: 17, color: '#2B2A24' }}>
             Sold out
           </span>
         )}
@@ -48,19 +63,28 @@ export function ProductCard({ product: p, height = 230, showBlurb = true }: Prop
             {PERF_LEVELS[p.perf - 1]}
           </span>
         </div>
-        <div onClick={open} style={{ fontFamily: serif, fontSize: 17, fontWeight: 600, lineHeight: 1.25, marginBottom: 6, cursor: 'pointer' }}>{p.name}</div>
+        <div onClick={open} style={{ fontFamily: display, fontSize: 17, fontWeight: 600, lineHeight: 1.25, marginBottom: 6, cursor: 'pointer' }}>{p.name}</div>
         {showBlurb && <div style={{ fontSize: 13, color: '#6B675C', lineHeight: 1.45, marginBottom: 12 }}>{p.blurb}</div>}
         <div style={{ marginTop: 'auto', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 8 }}>
             <span style={{ fontWeight: 700, fontSize: 16 }}>{money(p.price)}</span>
             <span style={{ fontSize: 12.5, color: '#948E7E' }}>★ {p.rating.toFixed(1)}</span>
           </div>
-          <button
-            onClick={add}
-            style={{ background: soldOut ? 'transparent' : '#7D8B4E', color: soldOut ? '#6B675C' : '#FCFAF5', border: soldOut ? '1px solid #CFC7B4' : 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13.5, fontWeight: 600, cursor: 'pointer' }}
-          >
-            {soldOut ? 'Notify me' : 'Add'}
-          </button>
+          {qty > 0 ? (
+            <div style={{ display: 'flex', alignItems: 'center', border: '1px solid #DED6C3', borderRadius: 8, overflow: 'hidden', background: '#FCFAF5', animation: 'tpPop .18s cubic-bezier(.4,0,.2,1)' }}>
+              <span onClick={dec} style={qtyBtn}>−</span>
+              <span style={{ minWidth: 18, textAlign: 'center', fontSize: 13.5, fontWeight: 700 }}>{qty}</span>
+              <span onClick={inc} style={qtyBtn}>+</span>
+              <span onClick={remove} style={{ ...qtyBtn, borderLeft: '1px solid #DED6C3', color: '#BC6A47' }}>🗑</span>
+            </div>
+          ) : (
+            <button
+              onClick={add}
+              style={{ background: soldOut ? 'transparent' : '#7D8B4E', color: soldOut ? '#6B675C' : '#FCFAF5', border: soldOut ? '1px solid #CFC7B4' : 'none', borderRadius: 8, padding: '8px 16px', fontSize: 13.5, fontWeight: 600, cursor: 'pointer' }}
+            >
+              {soldOut ? 'Notify me' : 'Add'}
+            </button>
+          )}
         </div>
       </div>
     </div>

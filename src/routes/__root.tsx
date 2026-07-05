@@ -4,6 +4,7 @@ import { Footer } from '../components/Footer';
 import { Nav } from '../components/Nav';
 import { NotFound } from '../components/NotFound';
 import { SurveyDrawer } from '../components/SurveyDrawer';
+import { SurveyFab } from '../components/SurveyFab';
 import { Toast } from '../components/Toast';
 
 export const Route = createRootRoute({
@@ -20,6 +21,7 @@ function RootLayout() {
       </main>
       <CartDrawer />
       <SurveyDrawer />
+      <SurveyFab />
       <Toast />
       <Footer />
     </div>

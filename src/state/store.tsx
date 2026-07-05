@@ -45,7 +45,12 @@ interface ShopStore {
   surveyBack(): void;
   surveyNext(): void;
   patchSurvey(patch: Partial<SurveyState>): void;
+
+  surveyFabHidden: boolean;
+  hideSurveyFab(): void;
 }
+
+const SURVEY_FAB_HIDDEN_KEY = 'survey-fab-hidden';
 
 const ShopContext = createContext<ShopStore | null>(null);
 
@@ -62,6 +67,7 @@ export function ShopProvider({ children }: { children: ReactNode }) {
   const [toast, setToast] = useState<string | null>(null);
   const toastId = useRef(0);
   const [survey, setSurvey] = useState<SurveyState>({ mode: 'closed', step: 0, exp: 0, brought: '', feel: 3, stock: '' });
+  const [surveyFabHidden, setSurveyFabHidden] = useState(() => localStorage.getItem(SURVEY_FAB_HIDDEN_KEY) === '1');
 
   const showToast = (msg: string) => {
     const id = ++toastId.current;
@@ -93,8 +99,6 @@ export function ShopProvider({ children }: { children: ReactNode }) {
       setCart((c) => c.map((l) => (l.id === id ? { ...l, qty: Math.max(1, l.qty + delta) } : l)));
     },
     removeLine(id) {
-      const p = getProduct(id);
-      if (p && !window.confirm('Remove ' + p.name.replace(/"/g, '') + ' from your bag?')) return;
       setCart((c) => c.filter((l) => l.id !== id));
     },
     clearCart: () => setCart([]),
@@ -112,6 +116,12 @@ export function ShopProvider({ children }: { children: ReactNode }) {
     surveyBack: () => setSurvey((s) => ({ ...s, step: Math.max(0, s.step - 1) })),
     surveyNext: () => setSurvey((s) => (s.step >= 3 ? { ...s, mode: 'thanks' } : { ...s, step: s.step + 1 })),
     patchSurvey: (patch) => setSurvey((s) => ({ ...s, ...patch })),
+
+    surveyFabHidden,
+    hideSurveyFab() {
+      setSurveyFabHidden(true);
+      localStorage.setItem(SURVEY_FAB_HIDDEN_KEY, '1');
+    },
   };
 
   return <ShopContext.Provider value={store}>{children}</ShopContext.Provider>;

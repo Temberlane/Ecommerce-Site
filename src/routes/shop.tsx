@@ -4,7 +4,7 @@ import { FacetSidebar } from '../components/FacetSidebar';
 import { ProductCard } from '../components/ProductCard';
 import { COLORS, PERF_LEVELS } from '../data/catalog';
 import { DEFAULT_FILTERS, filteredResults, PRICE_CAP, priceChanged, toggleCatValue, toggleValue, toShopSearch, type Filters, type ShopSearch, type SortKey } from '../lib/filters';
-import { buttons, serif } from '../lib/ui';
+import { buttons, heading } from '../lib/ui';
 
 const SORT_KEYS: SortKey[] = ['featured', 'price-asc', 'price-desc', 'rating', 'new'];
 
@@ -91,7 +91,7 @@ function ShopPage() {
 
       <div style={{ display: 'flex', alignItems: 'end', justifyContent: 'space-between', gap: 16, marginBottom: 8, flexWrap: 'wrap' }}>
         <div>
-          <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 38, margin: '0 0 4px', letterSpacing: '-0.015em' }}>{title}</h1>
+          <h1 style={{ fontFamily: heading, fontWeight: 500, fontSize: 38, margin: '0 0 4px', letterSpacing: '-0.015em' }}>{title}</h1>
           <div style={{ fontSize: 14.5, color: '#6B675C' }}>
             <span style={{ color: '#2B2A24', fontWeight: 600 }}>{results.length}</span> {results.length === 1 ? 'item' : 'items'} — narrow it down until it's the one.
           </div>
@@ -147,7 +147,7 @@ function ShopPage() {
           {!loading && results.length === 0 && (
             <div style={{ textAlign: 'center', padding: '80px 20px', background: '#FCFAF5', border: '1px dashed #DAD1BD', borderRadius: 16 }}>
               <div style={{ fontSize: 34, marginBottom: 12 }}>🫥</div>
-              <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: 26, margin: '0 0 8px' }}>No matches — try loosening your standards.</h3>
+              <h3 style={{ fontFamily: heading, fontWeight: 500, fontSize: 26, margin: '0 0 8px' }}>No matches — try loosening your standards.</h3>
               <p style={{ fontSize: 15, color: '#6B675C', margin: '0 0 22px' }}>Every filter is a boundary. Maybe drop one.</p>
               <button onClick={clearAll} style={{ ...buttons.olive, padding: '13px 24px', fontSize: 15 }}>Reset all filters</button>
             </div>

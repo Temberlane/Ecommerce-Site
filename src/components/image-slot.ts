@@ -5,7 +5,7 @@
  * <image-slot> whose `placeholder` text describes the intended shot.
  * This renders that as an intentional art-directed tile: a warm linen
  * tint (picked deterministically from the slot id, so grids get quiet
- * variation), a small line-art mark, and the caption in italic serif.
+ * variation), a small line-art mark, and the caption in cursive script.
  *
  * Attributes:
  *   id           distinct per slot; also seeds the tint choice
@@ -47,7 +47,7 @@ class ImageSlot extends HTMLElement {
       '.frame::after{content:"";position:absolute;inset:0;border-radius:inherit;' +
       '  box-shadow:inset 0 0 0 1px rgba(43,42,36,0.05)}' +
       '.mark{color:rgba(43,42,36,0.18);line-height:0}' +
-      '.cap{font:italic 500 12.5px/1.4 Fraunces,Georgia,serif;color:rgba(74,71,62,0.55);' +
+      '.cap{font:700 14px/1.4 Tangerine,cursive;color:rgba(74,71,62,0.7);' +
       '  max-width:92%;letter-spacing:0.01em}' +
       ':host([data-small]) .cap{display:none}' +
       ':host([data-small]) .mark svg{width:16px;height:16px}' +

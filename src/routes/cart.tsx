@@ -4,7 +4,7 @@ import { getProduct } from '../data/catalog';
 import { productImage } from '../data/images';
 import { shippingFor } from '../lib/checkout';
 import { money } from '../lib/format';
-import { buttons, serif } from '../lib/ui';
+import { buttons, display, heading } from '../lib/ui';
 import { useShop } from '../state/store';
 
 export const Route = createFileRoute('/cart')({
@@ -21,13 +21,13 @@ function CartPage() {
 
   return (
     <div style={{ maxWidth: 1120, margin: '0 auto', padding: '30px 28px 80px', animation: 'tpFade 0.35s ease' }}>
-      <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 40, letterSpacing: '-0.015em', margin: '0 0 6px' }}>Your bag</h1>
+      <h1 style={{ fontFamily: heading, fontWeight: 500, fontSize: 40, letterSpacing: '-0.015em', margin: '0 0 6px' }}>Your bag</h1>
       <div style={{ fontSize: 14.5, color: '#6B675C', marginBottom: 28 }}>{cartCount} things you have decided are essential.</div>
 
       {cartCount === 0 && (
         <div style={{ textAlign: 'center', padding: '90px 20px', background: '#FCFAF5', border: '1px dashed #DAD1BD', borderRadius: 16 }}>
           <div style={{ fontSize: 36, marginBottom: 12 }}>🛍️</div>
-          <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: 26, margin: '0 0 8px' }}>Nothing here yet.</h3>
+          <h3 style={{ fontFamily: heading, fontWeight: 500, fontSize: 26, margin: '0 0 8px' }}>Nothing here yet.</h3>
           <p style={{ fontSize: 15, color: '#6B675C', margin: '0 0 22px' }}>Suspiciously un-performative of you.</p>
           <Link to="/shop" style={{ ...buttons.olive, padding: '13px 24px', fontSize: 15, display: 'inline-block' }}>Start shopping</Link>
         </div>
@@ -45,7 +45,7 @@ function CartPage() {
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
                       <div>
-                        <div style={{ fontFamily: serif, fontSize: 18, fontWeight: 600, lineHeight: 1.25, marginBottom: 3 }}>{p.name}</div>
+                        <div style={{ fontFamily: display, fontSize: 18, fontWeight: 600, lineHeight: 1.25, marginBottom: 3 }}>{p.name}</div>
                         <div style={{ fontSize: 13, color: '#948E7E' }}>{p.dept}</div>
                       </div>
                       <span style={{ fontWeight: 700, fontSize: 16 }}>{money(p.price * line.qty)}</span>
@@ -61,7 +61,7 @@ function CartPage() {
           </div>
 
           <aside style={{ background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 14, padding: 24, position: 'sticky', top: 92 }}>
-            <div style={{ fontFamily: serif, fontSize: 20, fontWeight: 600, marginBottom: 18 }}>Summary</div>
+            <div style={{ fontFamily: heading, fontSize: 20, fontWeight: 600, marginBottom: 18 }}>Summary</div>
             <div style={{ display: 'flex', justifyContent: 'space-between', fontSize: 14.5, marginBottom: 10 }}>
               <span style={{ color: '#6B675C' }}>Subtotal</span>
               <span style={{ fontWeight: 600 }}>{money(cartSubtotal)}</span>

@@ -1,11 +1,11 @@
 import { Link } from '@tanstack/react-router';
-import { buttons, serif } from '../lib/ui';
+import { buttons, heading } from '../lib/ui';
 
 export function NotFound() {
   return (
     <div style={{ maxWidth: 620, margin: '0 auto', padding: '100px 28px 120px', textAlign: 'center', animation: 'tpFade 0.35s ease' }}>
-      <div style={{ fontFamily: serif, fontSize: 92, fontWeight: 500, color: '#7D8B4E', lineHeight: 1, marginBottom: 12 }}>404</div>
-      <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 32, margin: '0 0 10px' }}>This page isn't performing.</h1>
+      <div style={{ fontFamily: heading, fontSize: 92, fontWeight: 500, color: '#7D8B4E', lineHeight: 1, marginBottom: 12 }}>404</div>
+      <h1 style={{ fontFamily: heading, fontWeight: 500, fontSize: 32, margin: '0 0 10px' }}>This page isn't performing.</h1>
       <p style={{ fontSize: 16, color: '#6B675C', lineHeight: 1.6, margin: '0 0 28px' }}>
         It either moved, sold out of relevance, or was never really here — very on-brand, honestly. Let's get you back to something real.
       </p>

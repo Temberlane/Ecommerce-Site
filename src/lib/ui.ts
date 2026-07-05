@@ -1,7 +1,12 @@
 /** Shared style vocabulary for The Performative's flat, linen-toned look. */
 import type { CSSProperties } from 'react';
 
-export const serif = 'Fraunces, Georgia, serif';
+/** Cursive brand wordmark font — logo/wordmark use only. */
+export const brand = '"Tangerine", cursive';
+/** Bold display font for headings. */
+export const heading = '"Chango", sans-serif';
+/** Variable sans for infographic-like content: store cards, product descriptions. */
+export const display = '"Noto Sans Display", sans-serif';
 
 /** Solid/outline buttons; spread padding + fontSize at the call site. */
 export const buttons = {
@@ -14,4 +19,4 @@ export const buttons = {
 /** The flat card treatment: warm white, 1px hairline, no shadow. */
 export const card: CSSProperties = { background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 12, overflow: 'hidden' };
 
-export const sectionHeading: CSSProperties = { fontFamily: serif, fontWeight: 500, margin: 0, letterSpacing: '-0.01em' };
+export const sectionHeading: CSSProperties = { fontFamily: heading, fontWeight: 500, margin: 0, letterSpacing: '-0.01em' };

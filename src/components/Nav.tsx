@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useNavigate, useSearch } from '@tanstack/react-router';
 import { DEPTS } from '../data/catalog';
-import { serif } from '../lib/ui';
+import { brand } from '../lib/ui';
 import { useShop } from '../state/store';
 
 const navLink = { cursor: 'pointer', fontSize: 14.5, fontWeight: 500, color: '#4A473E', padding: '4px 0', whiteSpace: 'nowrap' } as const;
@@ -25,7 +25,7 @@ export function Nav() {
     <nav style={{ position: 'sticky', top: 0, zIndex: 60, background: 'rgba(246,241,231,0.86)', backdropFilter: 'blur(12px)', WebkitBackdropFilter: 'blur(12px)', borderBottom: '1px solid #E5DECF' }}>
       <div style={{ maxWidth: 1240, margin: '0 auto', padding: '0 28px', height: 70, display: 'flex', alignItems: 'center', gap: 28 }}>
         <Link to="/" style={{ cursor: 'pointer', display: 'flex', alignItems: 'baseline', gap: 8, flex: '0 0 auto' }}>
-          <span style={{ fontFamily: serif, fontWeight: 600, fontSize: 23, letterSpacing: '-0.01em' }}>The Performative</span>
+          <span style={{ fontFamily: brand, fontWeight: 700, fontSize: 32, letterSpacing: '-0.01em' }}>The Performative</span>
           <span style={{ width: 7, height: 7, borderRadius: '50%', background: '#7D8B4E', display: 'inline-block', transform: 'translateY(-2px)' }}></span>
         </Link>
         <div style={{ display: 'flex', alignItems: 'center', gap: 22, flex: '1 1 auto' }}>
