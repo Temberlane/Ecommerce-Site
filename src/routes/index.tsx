@@ -43,7 +43,7 @@ function HomePage() {
           </div>
         </div>
         <div style={{ position: 'relative' }}>
-          <image-slot id="img-hero" shape="rounded" radius="14" placeholder="lifestyle — café table, matcha + paperback" src={SITE_IMAGES.hero} style={{ width: '100%', height: 440 }}></image-slot>
+          <image-slot id="img-hero" shape="rounded" radius="14" placeholder="lifestyle — café table, matcha + paperback" src={SITE_IMAGES.hero} style={{ width: '100%', height: 640 }}></image-slot>
           <div style={{ position: 'absolute', bottom: 16, left: 16, background: 'rgba(252,250,245,0.92)', backdropFilter: 'blur(6px)', border: '1px solid #E5DECF', borderRadius: 10, padding: '10px 14px', fontSize: 13 }}>
             <span style={{ fontFamily: brand, fontWeight: 700, fontSize: 19 }}>The look:</span> committed, but casual about it.
           </div>

@@ -15,7 +15,14 @@ import type { Dept } from './catalog';
  * page. Indexes 1–3 fill the product page's gallery thumbnails.
  */
 export const PRODUCT_IMAGES: Partial<Record<string, string[]>> = {
-  // p1: ['/images/products/p1.jpg', '/images/products/p1-2.jpg'],
+  p1: ['/images/products/p1.webp'],
+  p2: ['/images/products/p2.jpg'],
+  p3: ['/images/products/p3.webp'],
+  p4: ['/images/products/p4.webp'],
+  p5: ['/images/products/p5.jpg'],
+  p6: ['/images/products/p6.webp'],
+  p7: ['/images/products/p7.jpg'],
+  p8: ['/images/products/p8.jpg'],
 };
 
 /** Home-page department tiles, keyed by department name. */
@@ -25,9 +32,8 @@ export const DEPT_IMAGES: Partial<Record<Dept, string>> = {
 
 /** One-off site imagery. */
 export const SITE_IMAGES: { hero?: string; bundle?: string; founder?: string } = {
-  // hero: '/images/site/hero.jpg', // lifestyle — café table, matcha + paperback
-  // bundle: '/images/site/starter-pack.jpg', // flat-lay — the whole starter pack
-  // founder: '/images/site/founder.jpg',
+  hero: '/images/site/hero.jpg',
+  founder: '/images/site/founder.jpg',
 };
 
 /** The nth photo for a product, or undefined to keep the placeholder. */
