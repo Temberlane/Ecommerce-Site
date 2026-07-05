@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { HomeRowCard } from '../components/HomeRowCard';
 import { BUNDLE_IDS, CATALOG, DEPTS, DEPT_TAGS, getProduct, PERF_LEVELS } from '../data/catalog';
+import { DEPT_IMAGES, SITE_IMAGES } from '../data/images';
 import { buttons, card, serif } from '../lib/ui';
 import { useShop } from '../state/store';
 
@@ -29,7 +30,7 @@ function HomePage() {
     <div style={{ animation: 'tpFade 0.4s ease' }}>
       <section style={{ maxWidth: 1240, margin: '0 auto', padding: '56px 28px 20px', display: 'grid', gridTemplateColumns: '1.05fr 0.95fr', gap: 48, alignItems: 'center' }}>
         <div>
-          <div style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 22 }}>Est. 2025 · Curated for the female gaze</div>
+          <div style={{ fontSize: 12.5, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 22 }}>Est. 2025 · Curated for the most aura</div>
           <h1 style={{ fontFamily: serif, fontWeight: 500, fontSize: 58, lineHeight: 1.02, letterSpacing: '-0.02em', margin: '0 0 22px' }}>
             Everything you need to look like you were <span style={{ fontStyle: 'italic', color: '#7D8B4E' }}>always this way.</span>
           </h1>
@@ -42,7 +43,7 @@ function HomePage() {
           </div>
         </div>
         <div style={{ position: 'relative' }}>
-          <image-slot id="img-hero" shape="rounded" radius="14" placeholder="lifestyle — café table, matcha + paperback" style={{ width: '100%', height: 440 }}></image-slot>
+          <image-slot id="img-hero" shape="rounded" radius="14" placeholder="lifestyle — café table, matcha + paperback" src={SITE_IMAGES.hero} style={{ width: '100%', height: 440 }}></image-slot>
           <div style={{ position: 'absolute', bottom: 16, left: 16, background: 'rgba(252,250,245,0.92)', backdropFilter: 'blur(6px)', border: '1px solid #E5DECF', borderRadius: 10, padding: '10px 14px', fontSize: 13 }}>
             <span style={{ fontFamily: serif, fontStyle: 'italic' }}>The look:</span> committed, but casual about it.
           </div>
@@ -67,7 +68,7 @@ function HomePage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 18 }}>
           {DEPTS.map((d, i) => (
             <div key={d} onClick={() => navigate({ to: '/shop', search: { depts: [d] } })} style={{ ...card, cursor: 'pointer' }}>
-              <image-slot id={'img-dept-' + i} shape="rect" placeholder={d.toLowerCase()} style={{ width: '100%', height: 168 }}></image-slot>
+              <image-slot id={'img-dept-' + i} shape="rect" placeholder={d.toLowerCase()} src={DEPT_IMAGES[d]} style={{ width: '100%', height: 168 }}></image-slot>
               <div style={{ padding: '16px 18px' }}>
                 <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 600, marginBottom: 3 }}>{d}</div>
                 <div style={{ fontSize: 13.5, color: '#6B675C' }}>{DEPT_TAGS[i]}</div>
@@ -79,7 +80,7 @@ function HomePage() {
 
       <section style={{ maxWidth: 1240, margin: '64px auto 0', padding: '0 28px' }}>
         <div style={{ background: '#F0DCD1', border: '1px solid #E7C9B9', borderRadius: 16, padding: 40, display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 40, alignItems: 'center' }}>
-          <image-slot id="img-bundle" shape="rounded" radius="12" placeholder="flat-lay — the whole starter pack" style={{ width: '100%', height: 300 }}></image-slot>
+          <image-slot id="img-bundle" shape="rounded" radius="12" placeholder="flat-lay — the whole starter pack" src={SITE_IMAGES.bundle} style={{ width: '100%', height: 300 }}></image-slot>
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#BC6A47', fontWeight: 700, marginBottom: 14 }}>Bundle · Save 15%</div>
             <h2 style={{ fontFamily: serif, fontWeight: 500, fontSize: 36, margin: '0 0 14px', letterSpacing: '-0.01em' }}>The Starter Pack</h2>
@@ -117,7 +118,7 @@ function HomePage() {
 
       <section style={{ maxWidth: 1240, margin: '72px auto 0', padding: '0 28px' }}>
         <div style={{ background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 16, padding: 48, display: 'grid', gridTemplateColumns: '130px 1fr', gap: 36, alignItems: 'start' }}>
-          <image-slot id="img-founder" shape="circle" placeholder="founder" style={{ width: 130, height: 130 }}></image-slot>
+          <image-slot id="img-founder" shape="circle" placeholder="founder" src={SITE_IMAGES.founder} style={{ width: 130, height: 130 }}></image-slot>
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.14em', textTransform: 'uppercase', color: '#7D8B4E', fontWeight: 600, marginBottom: 16 }}>A note from the desk</div>
             <p style={{ fontFamily: serif, fontSize: 23, lineHeight: 1.5, fontWeight: 400, margin: '0 0 16px', letterSpacing: '-0.005em' }}>

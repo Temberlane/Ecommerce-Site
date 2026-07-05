@@ -1,5 +1,6 @@
 import { useNavigate } from '@tanstack/react-router';
 import { getProduct } from '../data/catalog';
+import { productImage } from '../data/images';
 import { money } from '../lib/format';
 import { buttons, serif } from '../lib/ui';
 import { useShop } from '../state/store';
@@ -51,7 +52,7 @@ export function CartDrawer() {
             return (
               <div key={line.id} style={{ display: 'flex', gap: 14, padding: '16px 0', borderBottom: '1px solid #EFE9DB' }}>
                 {/* "drawer-" prefix keeps slot ids unique when the cart page shows the same items. */}
-                <image-slot id={'drawer-img-' + p.id} shape="rounded" radius="8" placeholder="img" style={{ width: 68, height: 68, flex: '0 0 auto' }}></image-slot>
+                <image-slot id={'drawer-img-' + p.id} shape="rounded" radius="8" placeholder="img" src={productImage(p.id)} style={{ width: 68, height: 68, flex: '0 0 auto' }}></image-slot>
                 <div style={{ flex: 1 }}>
                   <div style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 4 }}>{p.name}</div>
                   <div style={{ fontSize: 12.5, color: '#948E7E', marginBottom: 8 }}>{p.dept}</div>

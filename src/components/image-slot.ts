@@ -12,6 +12,9 @@
  *   shape        'rect' | 'rounded' | 'circle'   (default 'rounded')
  *   radius       corner radius in px for 'rounded' (default 12)
  *   placeholder  caption describing the image
+ *   src          real photo URL (see src/data/images.ts); when set the
+ *                photo covers the tile and the placeholder is hidden.
+ *                If the file fails to load, the placeholder comes back.
  *
  * Size comes from ordinary CSS on the element (inline width/height).
  */
@@ -24,11 +27,12 @@ const ICON =
 
 class ImageSlot extends HTMLElement {
   static get observedAttributes() {
-    return ['shape', 'radius', 'placeholder', 'id'];
+    return ['shape', 'radius', 'placeholder', 'id', 'src'];
   }
 
   private _frame: HTMLElement;
   private _cap: HTMLElement;
+  private _img: HTMLImageElement;
   private _ro: ResizeObserver;
 
   constructor() {
@@ -47,10 +51,15 @@ class ImageSlot extends HTMLElement {
       '  max-width:92%;letter-spacing:0.01em}' +
       ':host([data-small]) .cap{display:none}' +
       ':host([data-small]) .mark svg{width:16px;height:16px}' +
+      '.photo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:none}' +
+      ':host([src]:not([data-broken])) .photo{display:block}' +
+      ':host([src]:not([data-broken])) .mark,:host([src]:not([data-broken])) .cap{display:none}' +
       '</style>' +
-      '<div class="frame"><span class="mark">' + ICON + '</span><span class="cap"></span></div>';
+      '<div class="frame"><img class="photo" alt=""><span class="mark">' + ICON + '</span><span class="cap"></span></div>';
     this._frame = root.querySelector('.frame') as HTMLElement;
     this._cap = root.querySelector('.cap') as HTMLElement;
+    this._img = root.querySelector('.photo') as HTMLImageElement;
+    this._img.addEventListener('error', () => this.toggleAttribute('data-broken', true));
     this._ro = new ResizeObserver(() => this._fit());
   }
 
@@ -87,6 +96,13 @@ class ImageSlot extends HTMLElement {
     this._frame.style.background =
       'radial-gradient(120% 90% at 30% 20%, rgba(252,250,245,0.65), rgba(252,250,245,0) 60%), ' + tint;
     this._cap.textContent = this.getAttribute('placeholder') || '';
+    const src = this.getAttribute('src');
+    if (src !== this._img.getAttribute('src')) {
+      this.removeAttribute('data-broken');
+      if (src) this._img.src = src;
+      else this._img.removeAttribute('src');
+    }
+    this._img.alt = this.getAttribute('placeholder') || '';
     this._fit();
   }
 }

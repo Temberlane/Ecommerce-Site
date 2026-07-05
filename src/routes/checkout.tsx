@@ -3,6 +3,7 @@ import { createFileRoute, Link } from '@tanstack/react-router';
 import { CheckoutStepper, CHECKOUT_STEPS } from '../components/CheckoutStepper';
 import { QtyStepper } from '../components/QtyStepper';
 import { getProduct, type Product } from '../data/catalog';
+import { productImage } from '../data/images';
 import { FREE_SHIPPING_MIN, formatCard, formatExpiry, payErrors, shipErrors, shippingFor, type PayInfo, type ShipInfo } from '../lib/checkout';
 import { money } from '../lib/format';
 import { buttons, serif } from '../lib/ui';
@@ -107,7 +108,7 @@ function CheckoutPage() {
               if (!p) return null;
               return (
                 <div key={line.id} style={{ display: 'flex', gap: 16, alignItems: 'center', padding: '18px 0', borderBottom: '1px solid #EFE9DB' }}>
-                  <image-slot id={'co-img-' + p.id} shape="rounded" radius="8" placeholder="img" style={{ width: 62, height: 62, flex: '0 0 auto' }}></image-slot>
+                  <image-slot id={'co-img-' + p.id} shape="rounded" radius="8" placeholder="img" src={productImage(p.id)} style={{ width: 62, height: 62, flex: '0 0 auto' }}></image-slot>
                   <div style={{ flex: 1 }}>
                     <div style={{ fontFamily: serif, fontSize: 16, fontWeight: 600 }}>{p.name}</div>
                     <div style={{ fontSize: 12.5, color: '#948E7E' }}>{p.dept}</div>
@@ -175,7 +176,7 @@ function CheckoutPage() {
               Order <span style={{ fontWeight: 700, color: '#2B2A24' }}>{order.num}</span> is in. A confirmation is heading to your inbox.
             </p>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: '1.1fr 0.9fr', gap: 24, alignItems: 'start' }}>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 24 }}>
             <div style={{ background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 14, padding: '6px 22px' }}>
               <div style={{ padding: '16px 0 10px', fontSize: 12, fontWeight: 700, letterSpacing: '0.06em', textTransform: 'uppercase', color: '#4A473E', borderBottom: '1px solid #EFE9DB' }}>Order summary</div>
               {order.lines.map((l) => (
@@ -209,7 +210,7 @@ function CheckoutPage() {
                   <div style={{ textAlign: 'center', padding: '8px 0' }}>
                     <div style={{ fontSize: 24, marginBottom: 6 }}>🤍</div>
                     <div style={{ fontFamily: serif, fontSize: 19, fontWeight: 600, marginBottom: 4 }}>Thanks for that. Genuinely.</div>
-                    <div style={{ fontSize: 13.5, color: '#6B675C' }}>I read every single one of these, promise.</div>
+                    <div style={{ fontSize: 13.5, color: '#6B675C' }}>We read every single one of these, promise.</div>
                   </div>
                 ) : (
                   <>

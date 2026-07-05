@@ -1,4 +1,5 @@
-import type { CSSProperties, ReactNode } from 'react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
+import { z } from 'zod';
 import { CATALOG, CATGROUPS, COLORS, DEPTS, PERF_LEVELS, VIBES, type Dept } from '../data/catalog';
 import { countFor, PRICE_CAP, toggleCatValue, toggleValue, type Filters } from '../lib/filters';
 
@@ -9,6 +10,58 @@ interface Props {
 
 const PERF_DOTS = ['#C7CBB0', '#AEB78C', '#94A166', '#7D8B4E', '#64723C'];
 
+// Mirrors the definition on the FAQ page ("What is a Performative Level?").
+const PERF_HINTS = [
+  'You own it quietly.',
+  'It slips into rotation.',
+  'A clear choice.',
+  'It leads the outfit.',
+  'It is the entire personality.',
+];
+
+function PerfLevelHint() {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <span
+      style={{ position: 'relative', display: 'inline-flex' }}
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        aria-label="What is a Performative Level?"
+        aria-expanded={open}
+        onClick={() => setOpen((v) => !v)}
+        onBlur={() => setOpen(false)}
+        onKeyDown={(e) => { if (e.key === 'Escape') setOpen(false); }}
+        style={{ font: 'inherit', cursor: 'help', width: 16, height: 16, padding: 0, borderRadius: '50%', border: '1px solid ' + (open ? '#7D8B4E' : '#C3BBA6'), color: open ? '#7D8B4E' : '#948E7E', background: open ? '#E7EAD8' : 'transparent', fontSize: 11, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}
+      >
+        ?
+      </button>
+      {open && (
+        <div role="tooltip" style={{ position: 'absolute', top: 'calc(100% + 8px)', left: -12, zIndex: 20, width: 248, padding: '14px 16px', background: '#FCFAF5', border: '1px solid #DED6C3', borderRadius: 12, boxShadow: '0 8px 24px rgba(43,42,36,0.14)', animation: 'tpFade 0.15s ease' }}>
+          <div style={{ fontSize: 13, fontWeight: 600, color: '#2B2A24', marginBottom: 4 }}>Performative Level</div>
+          <div style={{ fontSize: 12.5, color: '#6B675C', lineHeight: 1.5, marginBottom: 10 }}>
+            Our own scale for how loudly a thing commits to the aesthetic.
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
+            {PERF_LEVELS.map((label, i) => (
+              <div key={label} style={{ display: 'flex', alignItems: 'baseline', gap: 8, fontSize: 12.5, lineHeight: 1.45 }}>
+                <span style={{ width: 8, height: 8, borderRadius: '50%', background: PERF_DOTS[i], flex: '0 0 auto', position: 'relative', top: -1 }}></span>
+                <span style={{ color: '#2B2A24' }}>
+                  <strong style={{ fontWeight: 600 }}>{label}</strong>
+                  <span style={{ color: '#6B675C' }}> — {PERF_HINTS[i]}</span>
+                </span>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+    </span>
+  );
+}
+
 const groupTitle: CSSProperties = { fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase', color: '#4A473E', marginBottom: 12 };
 const section: CSSProperties = { padding: '16px 0', borderBottom: '1px solid #EBE4D5' };
 
@@ -18,6 +71,136 @@ const boxStyle = (checked: boolean): CSSProperties => ({
   background: checked ? '#7D8B4E' : 'transparent',
   display: 'inline-flex', alignItems: 'center', justifyContent: 'center', flex: '0 0 auto',
 });
+
+const priceInput = z
+  .string()
+  .trim()
+  .min(1, 'Enter a price')
+  .pipe(
+    z.coerce
+      .number<string>('Numbers only')
+      .int('Whole dollars only')
+      .min(0, 'Must be at least $0')
+      .max(PRICE_CAP, `Max is $${PRICE_CAP}`)
+  );
+
+const priceRangeSchema = z
+  .object({ priceMin: priceInput, priceMax: priceInput })
+  .refine((v) => v.priceMin <= v.priceMax, { error: 'Min can’t exceed max' });
+
+const priceButton: CSSProperties = {
+  font: 'inherit', fontSize: 14, fontWeight: 600, color: '#2B2A24',
+  background: 'none', border: 'none', borderBottom: '1px dashed #A29B8A',
+  padding: '2px 3px', margin: 0, cursor: 'pointer',
+};
+
+const thumbCss = `
+.dual-thumb {
+  position: absolute; top: 0; left: 0; width: 100%; height: 24px; margin: 0;
+  -webkit-appearance: none; appearance: none; background: transparent;
+  pointer-events: none; outline: none;
+}
+.dual-thumb::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none; pointer-events: auto;
+  width: 18px; height: 18px; border-radius: 50%; background: #7D8B4E;
+  border: 2.5px solid #FCFAF5; box-shadow: 0 0 0 1px #7D8B4E; cursor: grab;
+}
+.dual-thumb::-moz-range-thumb {
+  pointer-events: auto; width: 13px; height: 13px; border-radius: 50%;
+  background: #7D8B4E; border: 2.5px solid #FCFAF5; box-shadow: 0 0 0 1px #7D8B4E; cursor: grab;
+}
+.dual-thumb::-moz-range-track { background: transparent; }
+.dual-thumb:focus-visible::-webkit-slider-thumb { box-shadow: 0 0 0 3px rgba(125,139,78,0.4); }
+.dual-thumb:focus-visible::-moz-range-thumb { box-shadow: 0 0 0 3px rgba(125,139,78,0.4); }
+`;
+
+type PriceField = 'priceMin' | 'priceMax';
+
+function PriceFacet({ f, set }: { f: Filters; set: (patch: Partial<Filters>) => void }) {
+  const [editing, setEditing] = useState<PriceField | null>(null);
+  const [draft, setDraft] = useState('');
+  const [error, setError] = useState<string | null>(null);
+
+  const begin = (field: PriceField) => {
+    setEditing(field);
+    setDraft(String(f[field]));
+    setError(null);
+  };
+
+  const cancel = () => {
+    setEditing(null);
+    setError(null);
+  };
+
+  const commit = (): boolean => {
+    if (!editing) return true;
+    const result = priceRangeSchema.safeParse({
+      priceMin: editing === 'priceMin' ? draft : String(f.priceMin),
+      priceMax: editing === 'priceMax' ? draft : String(f.priceMax),
+    });
+    if (!result.success) {
+      setError(result.error.issues[0].message);
+      return false;
+    }
+    set(result.data);
+    setEditing(null);
+    setError(null);
+    return true;
+  };
+
+  const priceValue = (field: PriceField) =>
+    editing === field ? (
+      <input
+        autoFocus
+        inputMode="numeric"
+        value={draft}
+        onChange={(e) => setDraft(e.target.value)}
+        onFocus={(e) => e.target.select()}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter') commit();
+          if (e.key === 'Escape') cancel();
+        }}
+        onBlur={() => { if (!commit()) cancel(); }}
+        style={{ width: 56, font: 'inherit', fontSize: 14, fontWeight: 600, color: '#2B2A24', padding: '2px 6px', borderRadius: 6, border: '1.5px solid ' + (error ? '#B4552D' : '#7D8B4E'), background: '#FFF', outline: 'none' }}
+      />
+    ) : (
+      <button type="button" title="Click to edit" onClick={() => begin(field)} style={priceButton}>
+        ${f[field]}{field === 'priceMax' && f.priceMax >= PRICE_CAP ? '+' : ''}
+      </button>
+    );
+
+  return (
+    <>
+      <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 4 }}>
+        {priceValue('priceMin')}
+        <span style={{ color: '#A29B8A' }}>–</span>
+        {priceValue('priceMax')}
+      </div>
+      {error && <div style={{ fontSize: 12, color: '#B4552D', marginBottom: 4 }}>{error}</div>}
+      <div style={{ position: 'relative', height: 24, marginTop: 8 }}>
+        <div style={{ position: 'absolute', top: 10, left: 0, right: 0, height: 4, borderRadius: 2, background: '#E5DECF' }} />
+        <div style={{ position: 'absolute', top: 10, height: 4, borderRadius: 2, background: '#7D8B4E', left: `${(f.priceMin / PRICE_CAP) * 100}%`, width: `${((f.priceMax - f.priceMin) / PRICE_CAP) * 100}%` }} />
+        <input
+          className="dual-thumb"
+          type="range" min="0" max={PRICE_CAP} step="1"
+          aria-label="Minimum price"
+          value={f.priceMin}
+          onChange={(e) => set({ priceMin: Math.min(+e.target.value, f.priceMax) })}
+          style={{ zIndex: f.priceMin > PRICE_CAP - 10 ? 5 : 3 }}
+        />
+        <input
+          className="dual-thumb"
+          type="range" min="0" max={PRICE_CAP} step="1"
+          aria-label="Maximum price"
+          value={f.priceMax}
+          onChange={(e) => set({ priceMax: Math.max(+e.target.value, f.priceMin) })}
+          style={{ zIndex: 4 }}
+        />
+        <style>{thumbCss}</style>
+      </div>
+    </>
+  );
+}
 
 function CheckRow({ label, count, checked, onToggle }: { label: ReactNode; count: number; checked: boolean; onToggle: () => void }) {
   return (
@@ -41,7 +224,7 @@ export function FacetSidebar({ filters: f, onChange }: Props) {
   })).filter((g) => g.values.length)) || [];
 
   return (
-    <aside style={{ position: 'sticky', top: 92 }}>
+    <aside style={{ position: 'sticky', top: 92, zIndex: 10 }}>
       <div style={{ background: '#FCFAF5', border: '1px solid #E5DECF', borderRadius: 14, padding: '6px 20px 14px' }}>
 
         <div style={section}>
@@ -53,17 +236,13 @@ export function FacetSidebar({ filters: f, onChange }: Props) {
 
         <div style={section}>
           <div style={groupTitle}>Price</div>
-          <div style={{ fontSize: 14, marginBottom: 12 }}>
-            <span style={{ fontWeight: 600 }}>${f.priceMin} – ${f.priceMax}{f.priceMax >= PRICE_CAP ? '+' : ''}</span>
-          </div>
-          <input type="range" min="0" max={PRICE_CAP} step="2" value={f.priceMin} onChange={(e) => set({ priceMin: Math.min(+e.target.value, f.priceMax) })} style={{ width: '100%', accentColor: '#7D8B4E' }} />
-          <input type="range" min="0" max={PRICE_CAP} step="2" value={f.priceMax} onChange={(e) => set({ priceMax: Math.max(+e.target.value, f.priceMin) })} style={{ width: '100%', accentColor: '#7D8B4E' }} />
+          <PriceFacet f={f} set={set} />
         </div>
 
         <div style={section}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 6, marginBottom: 12 }}>
             <span style={{ ...groupTitle, marginBottom: 0 }}>Performative Level</span>
-            <span title="How committed the item is to the aesthetic. Subtle = you own it quietly. Final Boss = it is the entire personality." style={{ cursor: 'help', width: 16, height: 16, borderRadius: '50%', border: '1px solid #C3BBA6', color: '#948E7E', fontSize: 11, display: 'inline-flex', alignItems: 'center', justifyContent: 'center' }}>?</span>
+            <PerfLevelHint />
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
             {PERF_LEVELS.map((label, i) => {

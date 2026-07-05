@@ -1,6 +1,7 @@
 import type { MouseEvent } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import { PERF_LEVELS, type Product } from '../data/catalog';
+import { productImage } from '../data/images';
 import { money } from '../lib/format';
 import { card, serif } from '../lib/ui';
 import { useShop } from '../state/store';
@@ -28,7 +29,7 @@ export function ProductCard({ product: p, height = 230, showBlurb = true }: Prop
   return (
     <div style={{ display: 'flex', flexDirection: 'column' }}>
       <div onClick={open} style={{ ...card, position: 'relative', cursor: 'pointer' }}>
-        <image-slot id={'img-' + p.id} shape="rect" placeholder={p.ph} style={{ width: '100%', height }}></image-slot>
+        <image-slot id={'img-' + p.id} shape="rect" placeholder={p.ph} src={productImage(p.id)} style={{ width: '100%', height }}></image-slot>
         {badge && (
           <span style={{ position: 'absolute', top: 12, left: 12, background: p.limited ? '#BC6A47' : '#2B2A24', color: '#F6F1E7', fontSize: 11, fontWeight: 700, letterSpacing: '0.05em', textTransform: 'uppercase', padding: '4px 9px', borderRadius: 20 }}>
             {badge}

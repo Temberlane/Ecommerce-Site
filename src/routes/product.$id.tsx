@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { createFileRoute, Link, notFound, useNavigate } from '@tanstack/react-router';
 import { CATALOG, DEPT_INFORM, getProduct, PERF_LEVELS } from '../data/catalog';
+import { productImage } from '../data/images';
 import { money } from '../lib/format';
 import { card, serif } from '../lib/ui';
 import { useShop } from '../state/store';
@@ -59,11 +60,11 @@ function ProductPage() {
         <>
           <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 52, alignItems: 'start' }}>
             <div style={{ position: 'sticky', top: 92 }}>
-              <image-slot key={mainSlot} id={mainSlot} shape="rounded" radius="14" placeholder={p.name} style={{ width: '100%', height: 480 }}></image-slot>
+              <image-slot key={mainSlot} id={mainSlot} shape="rounded" radius="14" placeholder={p.name} src={productImage(p.id, galleryIdx)} style={{ width: '100%', height: 480 }}></image-slot>
               <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 10, marginTop: 12 }}>
                 {galleryIds.map((slotId, i) => (
                   <div key={slotId} onClick={() => setGalleryIdx(i)} style={{ width: '100%', height: 70, borderRadius: 8, overflow: 'hidden', cursor: 'pointer', border: i === galleryIdx ? '2px solid #7D8B4E' : '1px solid #E5DECF' }}>
-                    <image-slot id={'thumb-' + slotId} shape="rect" placeholder="" style={{ width: '100%', height: '100%' }}></image-slot>
+                    <image-slot id={'thumb-' + slotId} shape="rect" placeholder="" src={productImage(p.id, i)} style={{ width: '100%', height: '100%' }}></image-slot>
                   </div>
                 ))}
               </div>
@@ -130,7 +131,7 @@ function ProductPage() {
               {related.map((r) => (
                 <div key={r.id}>
                   <div onClick={() => navigate({ to: '/product/$id', params: { id: r.id } })} style={{ ...card, position: 'relative', cursor: 'pointer' }}>
-                    <image-slot id={'rel-img-' + r.id} shape="rect" placeholder={r.ph} style={{ width: '100%', height: 190 }}></image-slot>
+                    <image-slot id={'rel-img-' + r.id} shape="rect" placeholder={r.ph} src={productImage(r.id)} style={{ width: '100%', height: 190 }}></image-slot>
                   </div>
                   <div style={{ padding: '12px 2px 0' }}>
                     <div onClick={() => navigate({ to: '/product/$id', params: { id: r.id } })} style={{ fontFamily: serif, fontSize: 15.5, fontWeight: 600, lineHeight: 1.25, marginBottom: 5, cursor: 'pointer' }}>{r.name}</div>

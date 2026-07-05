@@ -7,6 +7,8 @@ declare module 'react' {
         shape?: 'rect' | 'rounded' | 'circle';
         radius?: number | string;
         placeholder?: string;
+        /** Real photo URL from src/data/images.ts; omit to keep the placeholder tile. */
+        src?: string;
       };
     }
   }

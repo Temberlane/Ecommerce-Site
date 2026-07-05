@@ -1,6 +1,7 @@
 import { createFileRoute, Link, useNavigate } from '@tanstack/react-router';
 import { QtyStepper } from '../components/QtyStepper';
 import { getProduct } from '../data/catalog';
+import { productImage } from '../data/images';
 import { shippingFor } from '../lib/checkout';
 import { money } from '../lib/format';
 import { buttons, serif } from '../lib/ui';
@@ -40,7 +41,7 @@ function CartPage() {
               if (!p) return null;
               return (
                 <div key={line.id} style={{ display: 'flex', gap: 18, padding: '22px 0', borderBottom: '1px solid #EFE9DB' }}>
-                  <image-slot id={'img-' + p.id} shape="rounded" radius="10" placeholder="img" style={{ width: 96, height: 96, flex: '0 0 auto' }}></image-slot>
+                  <image-slot id={'img-' + p.id} shape="rounded" radius="10" placeholder="img" src={productImage(p.id)} style={{ width: 96, height: 96, flex: '0 0 auto' }}></image-slot>
                   <div style={{ flex: 1 }}>
                     <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12 }}>
                       <div>

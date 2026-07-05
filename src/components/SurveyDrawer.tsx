@@ -17,7 +17,7 @@ export function SurveyDrawer() {
           <div style={{ width: 62, height: 62, borderRadius: '50%', background: '#7D8B4E', color: '#FCFAF5', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: 30, margin: '0 auto 20px' }}>✓</div>
           <h3 style={{ fontFamily: serif, fontWeight: 500, fontSize: 26, margin: '0 0 10px' }}>You're officially performative.</h3>
           <p style={{ fontSize: 15, color: '#6B675C', lineHeight: 1.55, margin: '0 0 22px' }}>
-            Thanks for that. Genuinely — I read every single one of these, promise. Here's 10% off for your trouble.
+            Thanks for that. Genuinely. We read every single one of these, promise. Here's 10% off for your trouble.
           </p>
           <div style={{ border: '1.5px dashed #BC6A47', color: '#BC6A47', borderRadius: 10, padding: 14, fontFamily: serif, fontSize: 20, fontWeight: 600, letterSpacing: '0.05em', marginBottom: 22 }}>PERFORMATIVE10</div>
           <button onClick={closeSurvey} style={{ background: '#2B2A24', color: '#F6F1E7', border: 'none', borderRadius: 9, padding: '13px 26px', fontSize: 15, fontWeight: 600, cursor: 'pointer' }}>Back to browsing</button>

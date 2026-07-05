@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { useNavigate } from '@tanstack/react-router';
 import type { Product } from '../data/catalog';
+import { productImage } from '../data/images';
 import { money } from '../lib/format';
 import { card, serif } from '../lib/ui';
 
@@ -12,7 +13,7 @@ export function HomeRowCard({ product: p, badge }: { product: Product; badge?: R
   return (
     <div style={{ flex: '0 0 236px', scrollSnapAlign: 'start' }}>
       <div onClick={open} style={{ ...card, position: 'relative', cursor: 'pointer' }}>
-        <image-slot id={'img-' + p.id} shape="rect" placeholder={p.ph} style={{ width: '100%', height: 210 }}></image-slot>
+        <image-slot id={'img-' + p.id} shape="rect" placeholder={p.ph} src={productImage(p.id)} style={{ width: '100%', height: 210 }}></image-slot>
         {badge}
       </div>
       <div style={{ padding: '12px 2px 0' }}>
