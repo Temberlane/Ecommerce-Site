@@ -1,10 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Hello World</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>The Performative — everything you need to look like you were always this way</title>
+  <meta name="description" content="The starter pack for the tote-carrying, matcha-drinking, wired-earbud archetype. Earnestly good things, sold with the tongue firmly in cheek." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Ccircle cx='16' cy='16' r='10' fill='%237D8B4E'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,500&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+    body { background: #F6F1E7; color: #2B2A24; font-family: 'DM Sans', Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; }
+    ::selection { background: #A7B27E; color: #2B2A24; }
+    input, button, select, textarea { font-family: inherit; }
+    a { color: inherit; text-decoration: none; }
+    ::-webkit-scrollbar { height: 10px; width: 10px; }
+    ::-webkit-scrollbar-thumb { background: #D8CFBB; border-radius: 8px; border: 2px solid #F6F1E7; }
+    .hrow::-webkit-scrollbar { height: 8px; }
+    @keyframes tpUp { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: none; } }
+    @keyframes tpShimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+    @keyframes tpFade { from { opacity: 0; } to { opacity: 1; } }
+    .tp-skel { background: linear-gradient(90deg, #F0EADB 25%, #E9E2D0 37%, #F0EADB 63%); background-size: 800px 100%; animation: tpShimmer 1.3s infinite linear; }
+    image-slot { display: block; }
+  </style>
+  <script type="module" src="/src/main.tsx"></script>
 </head>
 <body>
-  Hello World
+  <div id="app"></div>
 </body>
 </html>
