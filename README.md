@@ -1,22 +1,24 @@
-# Klei Studio — Mock E-Commerce Site
+# The Performative — Mock E-Commerce Site
 
-This is a **mock e-commerce site** built as a design study. It is not a real shop: there are no real products, no payments are processed, and no data is stored.
+This is a **mock e-commerce site** built as a design study. It is not a real shop: the products are fictional, no payments are processed, and no data is stored.
 
-The site demonstrates an end-to-end storefront flow in a single static page:
+The Performative is a tongue-in-cheek lifestyle store built around the "performative male" meme — matcha kits, canvas totes, wired earbuds, dog-eared feminist paperbacks, and other essentials of the aesthetic. The site demonstrates an end-to-end storefront flow built in React:
 
-- **Browse** — a shelf of six wheel-thrown ceramic forms
-- **Configure** — pick a glaze and watch the vessel re-dip live
+- **Explore** — a faceted search with filters for category, price, colour, vibe, and a "Performative Level" scale
+- **Product pages** — spec sheets and add-to-cart
 - **Cart** — a slide-over drawer with quantities and totals
-- **Checkout** — a demo checkout form and order confirmation
+- **Checkout** — a stepped wizard (cart → details → payment → confirmation) that shows progress at every step
+- **Survey** — a short, dismissible feedback survey after visiting or buying
 
 ## Running locally
 
-It's a single static `index.html` — open it in a browser, or serve it:
+Built with React and Material UI. Install dependencies and start the dev server:
 
 ```sh
-npx serve .
+npm install
+npm run dev
 ```
 
 ## Deployment
 
-Deployed on [Vercel](https://vercel.com) as a static site. Part of the [Design Portfolio](../DesignPortfolio) case studies (Design 03).
+Build the production bundle with `npm run build`, then deploy on [Vercel](https://vercel.com) as a static site. Part of the [Design Portfolio](../DesignPortfolio) case studies (Design 04).
